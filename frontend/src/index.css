@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import "tailwindcss";
+@theme {
+  --font-P2P: "Press Start 2P", "system-ui";
+  --font-VT: "VT323", "monospace";
+
+  --animate-spin: spin 10s infinite;
+  --animate-fill: fill 3s ease-in-out forwards;
+  --animate-bounce: updown 2s ease-in-out infinite;
+  --animate-close: close 5s ease-in-out forwards;
+
+  @keyframes updown {
+    0%, 100%{ 
+      transform:translateY(-2px);
+    }50%{ 
+      transform: translateY(2px);
+    }
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }    
+  }
+  @keyframes fill {
+    0%{ 
+      width: 0%; 
+    }
+    100% { 
+      width: 100% ;
+    }
+  } 
+  @keyframes close {
+    0% {
+      max-height: 100vh; /* Ensures it starts from full height */
+      opacity: 1;
+    }
+    100% {
+      max-height: 0;
+      opacity: 0;
+    }
+  }
+  
+}
