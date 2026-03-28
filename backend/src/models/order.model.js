@@ -2,9 +2,9 @@ import mongoose, { Schema } from "mongoose";
 
 const orderSchema = new Schema(
     {
-        userid: {
+        customerid: {
             type: mongoose.Schema.Types.ObjectId,  
-            ref: "User",
+            ref: "Customer",
             required: true,
         },
         orderInfo: [{
@@ -17,6 +17,11 @@ const orderSchema = new Schema(
         totalPrice: {
             type: Number,
         },
+        status:{
+            type: String,
+            enum: ["preparing", "ready"],
+            default: "preparing"
+        }
     },
     {
         timestamps: true

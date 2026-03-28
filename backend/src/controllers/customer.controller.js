@@ -1,8 +1,8 @@
-import { User } from "../models/user.model.js";
+import { Customer } from "../models/customer.model.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 
-
+//customer register
 export const register = async (req, res) => {
     const { name, password } = req.body;
 
@@ -14,35 +14,35 @@ export const register = async (req, res) => {
         }
 
         // Check if user already exists
-        const existedUser = await User.findOne({ name });
-        if (existedUser) {
+        const existedCustomer = await Customer.findOne({ name });
+        if (existedCustomer) {
             return res.status(409).send({
                 message: "User already exists"
             });
         }
 
-        console.log("Existing User Check:", existedUser);
+        console.log("Existing User Check:", existedCustomer);
 
         // Hash password
         const hashpass = await bcrypt.hash(password, 10);
         console.log("Hashed Password:", hashpass);
 
         // Create new user
-        const user = await User.create({
+        const customer = await Customer.create({
             name,
             password: hashpass,
         });
 
-        console.log("User Created:", user);
+        console.log("Customer User Created:", customer);
 
-        if (!user) {
+        if (!customer) {
             return res.status(500).send({
                 message: "Something went wrong while creating the user"
             });
         }
 
         return res.status(201).send({
-            message: "User registered successfully"
+            message: "Customer User registered successfully"
         });
 
     } catch (error) {
@@ -54,6 +54,7 @@ export const register = async (req, res) => {
     }
 }
 
+//customer login
 export const login = async(req,res)=>{
     const {name,password} = req.body
     try {
@@ -62,21 +63,21 @@ export const login = async(req,res)=>{
                 message: " All fields are required "
             })
         }
-        const existedUser = await User.findOne({name})
-        if(!existedUser){
+        const existedCustomer = await Customer.findOne({name})
+        if(!existedCustomer){
             
             return res.status(404).send({
                 message : " User does not exists "
             })
         }
-        const isPasswordValid = await bcrypt.compare(password, existedUser.password)
+        const isPasswordValid = await bcrypt.compare(password, existedCustomer.password)
         if (!isPasswordValid) {
             return res.status(401).send({
                 message : " Invalid password, enter correct password"
             })
         }
         const token = jwt.sign(
-            { userId: existedUser._id, email: existedUser.email },  
+            { customerid: existedCustomer._id, email: existedCustomer.email },  
             process.env.TOKEN_SECRET,  
             { expiresIn: "1h" }  
         )
@@ -90,7 +91,7 @@ export const login = async(req,res)=>{
         return res.status(200).send({
             message: "Succesfully logged in",
             token: token,
-            data: existedUser.role
+            data: existedCustomer.role
         })
         
     } catch (error) {
@@ -101,6 +102,7 @@ export const login = async(req,res)=>{
     } 
 }
 
+//customer logout
 export const logout = async (req,res)=>{
     try {
         res.cookie('token'," ",{
@@ -115,7 +117,7 @@ export const logout = async (req,res)=>{
         })  
     } catch (error) {
         return res.status(500).send({
-            message : " Something went wrong "
+            message : "user Something went wrong "
         })
     }
 }

@@ -5,7 +5,7 @@ import { upload } from "../middlewares/multer.js";
 const router = Router()
 
 
-router.route("/register").post(upload,register)
+router.route("/admin/register").post(upload,register)
 router.route("/getall").get(getingredients)
 
 

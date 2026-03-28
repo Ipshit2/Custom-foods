@@ -1,14 +1,19 @@
 import { Ingredients } from "../models/ingredients.model.js";
 import { Order } from "../models/order.model.js";
 
+//order create
 export const createOrder = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const customerid = req.customer?._id;
         const { orderInfo } = req.body;
 
-        if (!orderInfo || !Array.isArray(orderInfo) || orderInfo.length === 0) {
-            return res.status(400).json({ message: "Invalid order: No ingredients selected" });
+        if (!customerid) {
+            return res.status(401).json({ message: "Unauthorized user" });
         }
+        if (!orderInfo || !Array.isArray(orderInfo) || orderInfo.length === 0) {
+        return res.status(400).json({
+            message: "Invalid order: No ingredients selected",
+        })}
 
         const ingredients = await Ingredients.find({ _id: { $in: orderInfo } });
 
@@ -39,16 +44,18 @@ export const createOrder = async (req, res) => {
         const ingredientNames = ingredients.map(ing => ing.name);
         console.log("Selected Ingredients:", ingredientNames);
 
-        
-        const totalPrice = ingredients.reduce((sum, ing) => sum + ing.price, 0);
 
         
+        const price = ingredients.reduce((sum, ing) => sum + ing.price, 0);
+        const totalPrice = price + 50
+        
         const newOrder = await Order.create({
-            userid: userId,
+            customerid: customerid,
             orderInfo,
             totalPrice,
             ingredients: ingredientNames
-        });
+
+        })
 
         return res.status(201).json({ 
             message: "Order placed successfully", 
@@ -62,24 +69,58 @@ export const createOrder = async (req, res) => {
     }
 }
 
+//retrive users order
+export const getmyOrder = async(req,res)=>{
+    try {
+        const customerid = req.customer?._id;
+
+        if (!customerid) {
+        return res.status(401).json({ message: "Unauthorized user" });
+        }
+
+        const orders = await Order.find({ customerid }).sort({ createdAt: -1 });
+
+        if (!orders.length) {
+        return res.status(404).json({
+            message: "No orders found",
+        });
+        }
+
+        return res.status(200).json({
+        message: "Orders fetched successfully",
+        data: orders,
+        });
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+        return res.status(500).json({
+        message: "Server error",
+        error: error.message,
+        })
+    }
+}
+
+//all orders (for admin)
 export const getallOrder = async(req,res)=>{
     try {
-        const allorders = await Owner.find({})
-    
-        if (!allorders || allorders.length === 0) {
-          return res.status(404).json({ message: "No Orders found" });
-        }
+        const orders = await Order.find({})
+      .populate("customerid", "name email")
+      .sort({ createdAt: -1 })
+
+        if (!orders.length) {
+        return res.status(404).json({
+            message: "No orders found",
+        })}
     
         return res.status(200).json({
           message: "Order retrieved successfully",
-          data: allorders,
-        });
+          data: orders,
+        })
     
       } catch (error) {
         console.error("Error fetching Order:", error)
         return res.status(500).json({
           message: "Server error",
           error: error.message,
-        });
+        })
       }
 }

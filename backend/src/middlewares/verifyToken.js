@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models/user.model.js"; 
+import { Customer } from "../models/customer.model.js"; 
 
 export const verifyToken = async (req, res, next) => {
   try {
@@ -17,14 +17,14 @@ export const verifyToken = async (req, res, next) => {
     }
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
 
-    const user = await User.findById(decoded.userId);
-    if (!user) {
+    const customer = await Customer.findById(decoded.customerid);
+    if (!customer) {
       return res.status(401).json({ 
         status: 401, 
-        message: "Unauthorized: User not found." 
+        message: "Unauthorized: customer not found." 
       });
     }
-    req.user = user;
+    req.customer = customer;
     next();
   } catch (err) {
     console.error("Token verification failed:", err);
@@ -32,7 +32,7 @@ export const verifyToken = async (req, res, next) => {
     if (err.name === "TokenExpiredError") {
       return res.status(403).json({ 
         status: 403, 
-        message: "Unauthorized: Token expired. Please login again." 
+        message: "Unauthorized: Token expired. user Please login again." 
       });
     }
 

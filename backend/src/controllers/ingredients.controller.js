@@ -1,5 +1,6 @@
 import { Ingredients } from "../models/ingredients.model.js";
 
+//ingredients input
 export const register = async (req, res) => {
     console.log(req.body);
 
@@ -42,6 +43,7 @@ export const register = async (req, res) => {
     }
 };
 
+//get ingredients all details
 export const getingredients = async(req,res)=>{
     try {
         const all = await Ingredients.find({})

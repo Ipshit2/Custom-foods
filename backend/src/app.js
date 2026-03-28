@@ -14,11 +14,11 @@ app.use(express.static("public"))
 
 
 import ingredientsRouter from "./routes/ingredients.route.js"
-import userRouter from "./routes/user.route.js"
+import customerRouter  from "./routes/customer.route.js"
 import orderRouter from "./routes/order.route.js"
 
 app.use("/ingredient",ingredientsRouter)
-app.use("/user",userRouter)
+app.use("/customer",customerRouter)
 app.use("/order",orderRouter)
 
 
