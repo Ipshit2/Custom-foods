@@ -1,23 +1,13 @@
 import { NavLink } from "react-router-dom"
-
-interface NAME{
-  name: string
-}
-
-function Navbar({ name } :NAME) {
+export default function Navbar() {
   return (
-    <div className='pt-[20px] pl-[20px] text-[15px] flex  text-[#E9E1D4] gap-x-[900px]'>
-        <h1 className=' rounded-2xl w-[170px] py-[7px] border-[#201E1F] border-[4px] bg-[#423C3C]' >CustomFoods</h1>
-        <NavLink to={name === "Order" ? "/orders" : "/dashboard"}>
-        <h1 className=' rounded-2xl w-auto px-[25px] py-[7px] border-[#201E1F] border-[4px] bg-[#423C3C]' >
-        {name === "Order" ? "Orders" : "Dashboard"}
-        </h1>
-        </NavLink>
-        
-        
-        
+    <div className="  px-6 py-4 flex justify-between items-center font-P2P ">
+      <div className="border-[3px] border-[#201E1F] bg-[#423C3C] text-[#E9E1D4] px-4 py-2 shadow-[3px_3px_0px_#201E1F]">
+        CUSTOMFOODS
+      </div>
+      <NavLink to="/orders" className="border-[3px] border-[#201E1F] bg-[#423C3C] text-[#E9E1D4] px-4 py-2 shadow-[3px_3px_0px_#201E1F]"> 
+        MY ORDERS
+      </NavLink>
     </div>
   )
 }
-
-export default Navbar

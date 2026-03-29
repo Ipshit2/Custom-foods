@@ -6,7 +6,7 @@
   --font-VT: "VT323", "monospace";
 
   --animate-spin: spin 10s infinite;
-  --animate-fill: fill 3s ease-in-out forwards;
+  --animate-fill: fill 1s ease-in-out forwards;
   --animate-bounce: updown 2s ease-in-out infinite;
   --animate-close: close 5s ease-in-out forwards;
 

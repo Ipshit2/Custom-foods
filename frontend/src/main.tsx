@@ -8,6 +8,7 @@ import Login from './pages/Login.tsx'
 import Signup from './pages/Signup.tsx'
 import Dashboard from './pages/Dashboard.tsx'
 import Orders from './pages/Orders.tsx'
+import CustomizePizza from './pages/CustomPizza.tsx'
 
 
 const router = createBrowserRouter(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path='/signup' element={<Signup />}></Route>
       <Route path='/orders' element={<Orders />}></Route>
       <Route path='/dashboard' element={<Dashboard />}></Route>
+      <Route path='/pizza' element={<CustomizePizza />}></Route>
 
    
     </Route>
