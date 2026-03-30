@@ -21,11 +21,17 @@ const orderSchema = new Schema(
             type: String,
             enum: ["preparing", "ready"],
             default: "preparing"
+        },
+        expireAt: {
+        type: Date,
+        default: () => new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
         }
     },
     {
         timestamps: true
     }
 );
+
+orderSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 export const Order = mongoose.model("Order", orderSchema);

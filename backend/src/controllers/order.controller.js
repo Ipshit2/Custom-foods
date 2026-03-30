@@ -53,7 +53,7 @@ export const createOrder = async (req, res) => {
             customerid: customerid,
             orderInfo,
             totalPrice,
-            ingredients: ingredientNames
+            ingredients: ingredientNames,
 
         })
 
@@ -66,6 +66,15 @@ export const createOrder = async (req, res) => {
     } catch (error) {
         console.error("Error creating order:", error);
         return res.status(500).json({ message: "Something went wrong", error: error.message });
+    }
+}
+
+//status change
+export const statusChange = async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
     }
 }
 

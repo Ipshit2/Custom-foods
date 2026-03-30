@@ -7,9 +7,6 @@ const ingredientsSchema = new Schema(
             type: String,
             required: true,
         },
-        ontop:{
-            type: String,
-        },
         name: {
             type: String,
             required: true,
