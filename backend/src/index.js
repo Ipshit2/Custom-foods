@@ -8,7 +8,7 @@ import connectDB from "./db/db.config.js"
 
 connectDB()
 .then(() => {
-    app.listen(process.env.PORT || 8080, () => {
+    app.listen(process.env.FRONTEND_URL || process.env.PORT, () => {
         console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
         console.log(process.env.PORT);
         
