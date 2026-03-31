@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Heading from "../components/ui/Heading";
 import OrderCard from "../components/ui/OrderCard";
+import { API_BASE } from "../api";
 
 type Order = {
   _id: string;
@@ -18,7 +19,7 @@ function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/order/myorder", {
+        const res = await axios.get( `${API_BASE}/order/myorder`, {
           withCredentials: true,
         });
         setOrders(res.data.data);

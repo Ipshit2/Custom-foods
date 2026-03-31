@@ -29,16 +29,8 @@ export default function Button({
   };
 
   return (
-    <button
-      onClick={onClick}
-      className={`
-      ${sizeStyles[size]}
-      ${variantStyles[variant]}
-      shadow-[3px_3px_0px_#201E1F] hover:cursor-pointer
-      active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
-      transition-all duration-100
-      ${className}`}
-    >
+    <button onClick={onClick} className={` ${sizeStyles[size]} ${variantStyles[variant]}
+      shadow-[3px_3px_0px_#201E1F] hover:cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all duration-100 ${className}`}>
       {children}
     </button>
   )

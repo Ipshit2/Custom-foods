@@ -13,5 +13,5 @@ export default function Heading({ title, className = "" }: HeadingProps) {
         {title}
       </h1>
     </div>
-  );
+  )
 }

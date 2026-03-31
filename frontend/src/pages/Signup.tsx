@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import axios from "axios";
 import Loading from '../components/Loading';
 import Button from '../components/ui/Button';
+import { API_BASE } from '../api';
 
 function Signup() {
   const [loading, setLoading] = useState(true);
@@ -16,7 +17,7 @@ function Signup() {
 
   const onSignup = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/customer/register", user);
+      const response = await axios.post(`${API_BASE}/customer/register`, user);
       console.log("signup success", response.data);
 
       toast.success("User Registered Successfully", {

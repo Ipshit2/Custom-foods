@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import axios from "axios"
 import Loading from '../components/Loading';
 import Button from '../components/ui/Button';
+import { API_BASE } from '../api';
 function Login() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ function Login() {
   })
   const onLogin = async()=>{
     try {
-      const response = await axios.post("http://localhost:8080/customer/login",user)
+      const response = await axios.post(`${API_BASE}/customer/login` ,user)
       console.log("login success", response.data);
 
       const { token } = response.data;

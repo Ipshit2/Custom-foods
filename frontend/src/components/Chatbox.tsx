@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Button from "./ui/Button";
+import { API_BASE } from "../api";
 type Message = {
   sender: "user" | "ai";
   text: string;
@@ -21,10 +22,9 @@ function Chatbox() {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:8080/ai/generate",
+      const res = await axios.post(`${API_BASE}/ai/generate`,
         { prompt: input }
-      );
+      )
 
       const data = res.data;
 

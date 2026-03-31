@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from 'react-hot-toast'
 import { useNavigate } from "react-router-dom";
 import Button from "./ui/Button";
+import { API_BASE } from "../api";
 type Ingredient = {
   _id: string;
   name: string;
@@ -33,11 +34,7 @@ function OrderSummaryModal({ items, total, onClose }: Props) {
     try {
       const orderIds = items.map((item) => item._id);
 
-      await axios.post(
-        "http://localhost:8080/order/create",
-        { orderInfo: orderIds },
-        { withCredentials: true }
-      )
+      await axios.post(`${API_BASE}/order/create`,{ orderInfo: orderIds },{ withCredentials: true })
       toast.success("Order placed successfully" ,{
         style: {
           border: '3px solid #66422A',

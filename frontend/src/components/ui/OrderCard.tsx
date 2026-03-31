@@ -34,5 +34,5 @@ export default function OrderCard({ order }: OrderCardProps) {
         </span>
       </div>
     </div>
-  );
+  )
 }

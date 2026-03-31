@@ -1,3 +1,4 @@
+import { API_BASE } from "../../api";
 import Button from "./Button";
 
 type FoodItem = {
@@ -25,7 +26,7 @@ export default function FoodCard({
     <div className={`p-3 text-center border-[3px]  text-[12px] shadow-[3px_3px_0px_#66422A]
       ${isSelected ? "bg-[#A4BE7B]" : "bg-[#f5e6cc]"}`}>
       
-      <img src={`http://localhost:8080/${item.image}`} className="animate-bounce h-[150px] mx-auto mb-3"/>
+      <img src={`${API_BASE}/${item.image}`} className="animate-bounce h-[150px] mx-auto mb-3"/>
       <h2>{item.name}</h2>
       <p>₹ {item.price}</p>
 

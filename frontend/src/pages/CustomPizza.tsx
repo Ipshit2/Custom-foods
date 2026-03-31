@@ -6,6 +6,7 @@ import Chatbox from '../components/Chatbox'
 import Button from "../components/ui/Button";
 import Heading from "../components/ui/Heading";
 import FoodCard from "../components/ui/FoodCard";
+import { API_BASE } from "../api";
 type Ingredient = {
   _id: string;
   name: string;
@@ -25,7 +26,7 @@ function CustomizePizza() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("http://localhost:8080/ingredient/getall", {
+      const res = await axios.get(`${API_BASE}/ingredient/getall`, {
         withCredentials: true,
       });
 
