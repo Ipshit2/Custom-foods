@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from 'react-hot-toast'
 import { useNavigate } from "react-router-dom";
+import Button from "./ui/Button";
 type Ingredient = {
   _id: string;
   name: string;
@@ -123,20 +124,13 @@ function OrderSummaryModal({ items, total, onClose }: Props) {
           <span>₹ {total}</span>
         </div>
 
-        <div className="gap-5 flex">
-          <button
-            onClick={handlePlaceOrder}
-            className="mt-6 w-full bg-[#A4BE7B] border-[#201E1F] border-2 py-2"
-          >
-            Place Order
-          </button>
-
-          <button
-            onClick={onClose}
-            className="mt-6 w-full bg-[#423C3C] text-white py-2"
-          >
+        <div className="gap-5 mt-10 flex justify-center">
+          <Button onClick={handlePlaceOrder} variant="primary" size="md" className="w-[50%]">
+              Place Order
+          </Button>
+          <Button onClick={onClose} size="md" className="w-[50%]">
             Add More
-          </button>
+          </Button>
         </div>
       </div>
     </div>

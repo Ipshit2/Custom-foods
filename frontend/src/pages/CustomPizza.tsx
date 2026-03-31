@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import OrderSummaryModal from "../components/OrderSummaryModal";
-
+import Chatbox from '../components/Chatbox'
+import Button from "../components/ui/Button";
+import Heading from "../components/ui/Heading";
+import FoodCard from "../components/ui/FoodCard";
 type Ingredient = {
   _id: string;
   name: string;
@@ -97,54 +100,61 @@ function CustomizePizza() {
     <div className="bg-[#f5e6cc] min-h-screen pb-25 text-[#66422A] font-P2P">
       <Navbar />
 
-      <div className="mx-[100px] mt-[30px] text-center bg-[#423C3C] text-[#E9E1D4] border-[3px] animate-bounce border-[#201E1F] shadow-[3px_3px_0px_#201E1F] py-3">
-        &gt;&gt; BUILD YOUR PIZZA &lt;&lt;
-      </div>
-
-      <div className="mx-[100px] mt-[10px] text-[12px]">
-        <p>• Atleast 1 crust & 1 sauce</p>
-        <p>• Max 3 cheese & 10 toppings</p>
-      </div>
-
-      <div className="mx-[100px] mt-[20px] bg-[#E5CA95] border-[4px] border-[#66422A] shadow-[7px_7px_0px_#66422A] p-6">
-        
-        <div className="flex justify-center gap-20 mb-8 text-2xl ">
-          <button onClick={prev}>&lt;</button>
-          <h1 className="text-center">
-            {types[currentIndex] || "Loading"}
-          </h1>
-          <button onClick={next}>&gt;</button>
+      <div className="px-[250px]">
+        <div className=" mt-[30px]">
+          <Heading title=">> BUILD YOUR PIZZA  <<" />
         </div>
 
-        <div className="grid grid-cols-3 gap-6 ">
-          {filtered.map((item) => {
-            const selectedItem = isSelected(item._id);
-            const disabled = !canAdd(item);
+        <div className=" flex justify-center  gap-20 mt-[20px] text-[12px]">
+          <p>• Atleast 1 crust & 1 sauce</p>
+          <p>• Max 3 cheese & 10 toppings</p>
+        </div>
 
-            return (
-              <div key={item._id} className={`p-4 animate-bounce text-center border-[3px] shadow-[3px_3px_0px_#66422A] ${selectedItem 
-              ? "bg-[#A4BE7B]" : "bg-[#f5e6cc]"}`}>
-                <img src={`http://localhost:8080/${item.image}`} className="h-[150px] mx-auto mb-3"/>
+        <div className="mt-[20px] bg-[#E5CA95] border-[4px] border-[#66422A] shadow-[5px_5px_0px_#66422A] p-6">
+          <div className="flex justify-center items-center gap-10 mb-8">
+            <Button
+              size="md"
+              onClick={prev}
+              className="w-10 h-10 flex items-center justify-center p-0">
+              {"<"}
+            </Button>
+            <h1 className="text-lg text-center bg-[#E5CA95] px-6 py-2 border-[3px] border-[#66422A] shadow-[3px_3px_0px_#66422A] min-w-[200px] tracking-widest">
+              {types[currentIndex] || "Loading"}
+            </h1>
+            <Button
+              size="md"
+              onClick={next}
+              className="w-10 h-10 flex items-center justify-center p-0">
+              {">"}
+            </Button>
+          </div>
+          <div className="grid grid-cols-3 gap-10 ">
+            {filtered.map((item) => {
+              const selectedItem = isSelected(item._id);
+              const disabled = !canAdd(item);
 
-                <h2>{item.name}</h2>
-                <p>₹ {item.price}</p>
-
-                <button onClick={() => toggleItem(item)} disabled={!selectedItem && disabled} className={`mt-2 px-4 py-1 ${ disabled && !selectedItem 
-                ? "bg-gray-400"
-                : "bg-[#423C3C] text-white"  }`}>
-                  {selectedItem ? "REMOVE" : "ADD"}
-                </button>
-              </div>
-            );
-          })}
+              return (
+                <FoodCard
+                  key={item._id}
+                  item={item}
+                  isSelected={selectedItem}
+                  disabled={disabled}
+                  onToggle={toggleItem}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
-
+            
       <div className="fixed bottom-0 w-full bg-[#423C3C]  p-4 flex justify-between">
-        <button disabled={!canOrder()} onClick={() => setShowModal(true)} className={`px-4 py-2 ${
+        <button disabled={!canOrder()} onClick={() => setShowModal(true)} className={`border-[2px] border-[#201E1F] shadow-[3px_3px_0px_#201E1F] hover:cursor-pointer
+      active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
+      transition-all duration-100 px-4 py-2 ${
             canOrder() ? "bg-[#A4BE7B]" : "bg-gray-500"}`}>
           PLACE ORDER
         </button>
+        <Chatbox/>
       </div>
 
       {showModal && (
