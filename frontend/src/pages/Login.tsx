@@ -3,6 +3,7 @@ import { NavLink, useNavigate  } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import axios from "axios"
 import Loading from '../components/Loading';
+import Button from '../components/ui/Button';
 function Login() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
@@ -94,12 +95,9 @@ function Login() {
         />
 
         <div className="flex justify-center">
-          <button
-            onClick={onLogin}
-            className="
-              bg-[#423C3C] text-[#E9E1D4] px-6 py-2 border-[3px] border-[#201E1F] shadow-[3px_3px_0px_#201E1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+          <Button onClick={onLogin} size="md" variant="secondary" className='w-full'>
             LOGIN
-          </button>
+          </Button>
         </div>
 
         <div className="text-center mt-8 text-[10px] leading-5">
